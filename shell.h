@@ -15,7 +15,7 @@ int _printenv(void);
 char *_getenv(char *var);
 
 char *command_path(char *cmd);
-int command_read(char *s);
-int execute(char *cmd_arr[]);
+int command_read(char *s, char *name);
+int execute(char *cmd_arr[], char *name);
 
 #endif

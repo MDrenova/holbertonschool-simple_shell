@@ -11,7 +11,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
 {
 	char *line = NULL;
 	size_t buf_size = 0;
-	size_t characters = 0;
+	int characters = 0;
 
 	while (1)
 	{
@@ -45,7 +45,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
  * @name: the name of the program
  * Return: 0 on success, 2 if the command is "exit" or error code on failure.
  */
-int command_read(char *s, chara *name)
+int command_read(char *s, char *name)
 {
 	int i;
 	char *token = NULL;
