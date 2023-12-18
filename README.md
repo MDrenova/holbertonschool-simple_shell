@@ -5,7 +5,7 @@ This project is a simple implementation of a shell in C. A shell, in computing, 
 
 
 ## Table of Contents
-1. [How This Code Works](#how%20this%20code%20works)
+1. [How This Code Works](#how-this-code-works)
 2. [Features](#features)
 3. [Installation](#installation)
 4. [Usage](#usage)
