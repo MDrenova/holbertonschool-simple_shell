@@ -20,7 +20,7 @@ char *command_path(char *cmd)
 	path_copy = strdup(path);
 	if (path_copy == NULL)
 	{
-		fprintf(stderr, "Error coping path");
+		fprintf(stderr, "Error copying path");
 		return (NULL);
 	}
 	token = strtok(path_copy, ":");
@@ -43,7 +43,6 @@ char *command_path(char *cmd)
 			return (full_path);
 		}
 		free(full_path);
-
 		token = strtok(NULL, ":");
 	}
 	free(path_copy);
