@@ -1,42 +1,46 @@
 #include "shell.h"
+
 /**
- * _printenv - function to print the environment variables.
- *
- * Return: 0 on success, -1 if an error occurred.
+ * _printenv - Prints the environment
+ * @void: void
+ * Return: 0 on success, -1 on failure
  */
+
 int _printenv(void)
 {
-	int i, file_descr = 1;
+	int i = 0;
+	char *str = environ[0];
 
-	if (environ == NULL)
-		fprintf(stderr, "error");
-
-	i = 0;
-	while (environ[i] != NULL)
+	if (str == NULL)
 	{
-		write(file_descr, environ[i], strlen(environ[i]));
-		write(file_descr, "\n", 1);
-		i++;
+		fprintf(stderr, "Environment variable is null");
+		return (-1);
 	}
-
+	while (str != NULL)
+	{
+		printf("%s\n", str);
+		i++;
+		str = environ[i];
+	}
 	return (0);
 }
+
 /**
- * _getenv - ffunction to get the value of an environment variable.
- * @var: the name of environment varaible to get.
- * Return: the value of the environment variable, or NULL if an error ocurred.
+ * _getenv - Gets the value of an environment variable
+ * @var: The environment variable to get
+ * Return: The value of the environment variable
  */
+
 char *_getenv(char *var)
 {
 	int i, len_var;
 
 	if (environ == NULL)
 	{
-		fprintf(stderr, "environmet variable is null");
+		fprintf(stderr, "Environment variable is null");
 		return (NULL);
 	}
 	len_var = strlen(var);
-
 	for (i = 0; environ[i] != NULL; i++)
 	{
 		if (strncmp(environ[i], var, len_var) == 0)

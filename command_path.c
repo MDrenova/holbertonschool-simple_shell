@@ -8,6 +8,7 @@
 char *command_path(char *cmd)
 {
 	char *path, *path_copy, *full_path, *token;
+	struct stat buf;
 
 	path = _getenv("PATH");
 
@@ -35,10 +36,18 @@ char *command_path(char *cmd)
 		strcpy(full_path, token);
 		strcat(full_path, "/");
 		strcat(full_path, cmd);
+		strcat(full_path, "\0");
+		if (stat(full_path, &buf) == 0)
+		{
+			free(path_copy);
+			return (full_path);
+		}
+		free(full_path);
 
 		token = strtok(NULL, ":");
 	}
-
 	free(path_copy);
-	return (full_path);
+	if (stat(cmd, &buf) == 0)
+		return (strdup(cmd));
+	return (NULL);
 }

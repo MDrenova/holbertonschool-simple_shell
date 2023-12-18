@@ -1,0 +1,33 @@
+.TH MAN 1 "18 Dec 2023" "1.0" "simple_shell man page"
+.SH NAME
+simple_shell \- simple UNIX command line interpreter
+.SH SYNOPSIS
+.B simple_shell
+.SH DESCRIPTION
+.B simple_shell
+is a very basic shell that reads a command from standard input and executes it. It does not handle all the features of a typical shell. It is a starting point for building a more complex shell.
+.PP
+The shell displays a prompt, waits for the user to type a command, and executes it. If the command cannot be executed, it prints an error message. It also handles the "end of file" condition (Ctrl+D).
+.SH USAGE
+Start the shell by running:
+.IP
+.B ./simple_shell
+.PP
+Type a command at the prompt and press Enter to execute it.
+.SH EXAMPLES
+Start the shell:
+.IP
+.B ./simple_shell
+.PP
+At the prompt, type a command:
+.IP
+.B /bin/ls
+.PP
+The shell will execute the command and display the output.
+.SH SEE ALSO
+.BR bash (1),
+.BR sh (1)
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Written by Arbes Avdiaj, Mateo Drenova, Blerim Balliu, Ralf Semi.
