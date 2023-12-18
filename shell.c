@@ -7,35 +7,39 @@
  *
  * Return: 0 on success, or the error code on failure.
  */
-int main(int __attribute__((unused)) argc, char *argv[])
+int main(void)
 {
 	char *line = NULL;
-	size_t buf_size = 0;
-	int characters = 0;
+	size_t len = 0;
+	ssize_t read;
+	char *argv[2];
+	pid_t pid;
 
-	while (1)
-	{
-		write(1, "Welcome to Shell $ ", 19);
-
-		characters = getline(&line, &buf_size, stdin);
-		if (characters == -1)
-		{
-			perror("Error");
-			break;
+	while (1) {
+		printf("#cisfun$ ");
+		read = getline(&line, &len, stdin);
+		if (read == -1) {
+			printf("\n");
+			exit(EXIT_SUCCESS);
 		}
+		line[read - 1] = '\0';  /* Remove newline character */
 
-		if (line[characters - 1] == '\n')
-			line[characters - 1] = '\0';
-
-		if (*line == '\0')
-			continue;
-
-		if (command_read(line, argv[0]) == 2)
-			break;
+		pid = fork();
+		if (pid == -1) {
+			perror("Error:");
+			return (1);
+		}
+		if (pid == 0) {
+			argv[0] = line;
+			argv[1] = NULL;
+			if (execve(line, argv, NULL) == -1) {
+				perror("./shell");
+			}
+		} else {
+			wait(NULL);
+		}
 	}
-
 	free(line);
-
 	return (0);
 }
 
