@@ -9,15 +9,19 @@ is a very basic shell that reads a command from standard input and executes it. 
 .PP
 The shell displays a prompt, waits for the user to type a command, and executes it. If the command cannot be executed, it prints an error message. It also handles the "end of file" condition (Ctrl+D).
 .SH USAGE
+Compile the C files using the following command
+.IP
+.B gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+.PP
 Start the shell by running:
 .IP
-.B ./simple_shell
+.B ./hsh
 .PP
 Type a command at the prompt and press Enter to execute it.
 .SH EXAMPLES
 Start the shell:
 .IP
-.B ./simple_shell
+.B ./hsh
 .PP
 At the prompt, type a command:
 .IP
