@@ -1,0 +1,29 @@
+.TH MAN 1 "16 Dec 2023" "1.0" "Simple Shell man page"
+.SH NAME
+Simple Shell \- A simple shell implementation in C
+.SH SYNOPSIS
+.B hsh
+.RI [ scriptfile ]
+.SH DESCRIPTION
+This is a simple implementation of a shell in C. It provides an interface between the user and the operating system, allowing the user to issue commands which are then interpreted and passed onto the operating system to execute.
+.PP
+The shell includes basic functionalities such as executing commands, handling environment variables, and tokenization.
+.SH OPTIONS
+No options to run this program.
+.SH EXAMPLES
+To start the shell, compile the C files using the following command:
+.br
+.B gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+.PP
+Then run the resulting executable:
+.br
+.B ./hsh
+.PP
+You will be greeted with a "Welcome to Shell $" prompt where you can start entering your commands.
+.SH SEE ALSO
+bash(1), sh(1)
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Written by [Your Name].
+
