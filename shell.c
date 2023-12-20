@@ -21,8 +21,8 @@ int command_read(char *s)
 	while (token != NULL && i < 100)
 	{
 		cmd_array[i] = token;
-		i++;
 		token = strtok(NULL, " ");
+		i++;
 	}
 	cmd_array[i] = NULL;
 	return (execute(cmd_array));
@@ -39,13 +39,11 @@ int execute(char *cmd_arr[])
 	pid_t pid;
 	char *exe_path;
 	int status;
-	char *name;
 
-	name = cmd_arr[0];
-	exe_path = command_path(name);
+	exe_path = command_path(cmd_arr[0]);
 	if (exe_path == NULL)
 	{
-		write(1, name, strlen(name));
+		write(1, cmd_arr[0], strlen(cmd_arr[0]));
 		write(1, ": not found\n", 12);
 		return (1);
 	}
@@ -72,7 +70,6 @@ int execute(char *cmd_arr[])
 		exit(1);
 	}
 	free(exe_path);
-	free(cmd_arr);
 	return (0);
 }
 
@@ -83,13 +80,12 @@ int execute(char *cmd_arr[])
  * Return: 0 on success, 1 on failure
  */
 
-int main(int __attribute__((unused)) argc, char *argv[])
+int main(void)
 {
 	char *line = NULL;
 	size_t buf_size = 0;
 	ssize_t characters = 0;
 
-	name = argv[0];
 	while (1)
 	{
 		if (isatty(STDIN_FILENO) == 1)
