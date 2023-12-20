@@ -1,8 +1,9 @@
 #include "shell.h"
+
 /**
- * command_path - function to find the full path of a command
- * @cmd: The command to find the path for
- * Return: The full path of the commmand, or Null if an error occurred.
+ * command_path - Finds the full path of a command
+ * @cmd: The command to find
+ * Return: The full path of the command
  */
 
 char *command_path(char *cmd)
@@ -11,7 +12,6 @@ char *command_path(char *cmd)
 	struct stat buf;
 
 	path = _getenv("PATH");
-
 	if (path == NULL)
 	{
 		fprintf(stderr, "Path variable not found");
@@ -30,22 +30,21 @@ char *command_path(char *cmd)
 		if (full_path == NULL)
 		{
 			fprintf(stderr, "Error allocating full path");
-			free(path_copy);
+			free (path_copy);
 			return (NULL);
 		}
 		strcpy(full_path, token);
 		strcat(full_path, "/");
 		strcat(full_path, cmd);
-		strcat(full_path, "\0");
 		if (stat(full_path, &buf) == 0)
 		{
-			free(path_copy);
+			free (path_copy);
 			return (full_path);
 		}
-		free(full_path);
+		free (full_path);
 		token = strtok(NULL, ":");
 	}
-	free(path_copy);
+	free (path_copy);
 	if (stat(cmd, &buf) == 0)
 		return (strdup(cmd));
 	return (NULL);
