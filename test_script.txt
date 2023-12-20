@@ -1,4 +1,0 @@
-#!/bin/bash
-ls -l
-pwd
-echo Hello, World!
