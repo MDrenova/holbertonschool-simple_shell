@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 
 extern char **environ;
+char *name;
 
 int _printenv(void);
 char *_getenv(char *var);
