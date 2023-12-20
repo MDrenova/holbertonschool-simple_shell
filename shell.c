@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * command_read - Reads a command from stdin
@@ -21,8 +21,8 @@ int command_read(char *s)
 	while (token != NULL && i < 100)
 	{
 		cmd_array[i] = token;
-		i++;
 		token = strtok(NULL, " ");
+		i++;
 	}
 	cmd_array[i] = NULL;
 	return (execute(cmd_array));
@@ -39,14 +39,11 @@ int execute(char *cmd_arr[])
 	pid_t pid;
 	char *exe_path;
 	int status;
-	char *name;
 
-	name = cmd_arr[0];
-	exe_path = command_path(name);
+	exe_path = command_path(cmd_arr[0]);
 	if (exe_path == NULL)
 	{
-		write(1, name, strlen(name));
-		write(1, ": not found\n", 12);
+		fprintf(stderr, "Command not found\n");
 		return (1);
 	}
 	pid = fork();
@@ -57,22 +54,17 @@ int execute(char *cmd_arr[])
 	}
 	if (pid > 0)
 	{
-		do {
-			waitpid(pid, &status, WUNTRACED);
-		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-		if (WEXITSTATUS(status) != 0)
-		{
+		wait(&status);
+		if (WIFEXITED(status))
 			exit(2);
-		}
 	}
-	else if (pid == 0)
+	if (pid == 0)
 	{
 		execve(exe_path, cmd_arr, environ);
 		perror("Error");
 		exit(1);
 	}
 	free(exe_path);
-	free(cmd_arr);
 	return (0);
 }
 
@@ -83,13 +75,12 @@ int execute(char *cmd_arr[])
  * Return: 0 on success, 1 on failure
  */
 
-int main(int __attribute__((unused)) argc, char *argv[])
+int main(void)
 {
 	char *line = NULL;
 	size_t buf_size = 0;
 	ssize_t characters = 0;
 
-	name = argv[0];
 	while (1)
 	{
 		if (isatty(STDIN_FILENO) == 1)
