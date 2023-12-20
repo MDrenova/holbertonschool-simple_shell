@@ -11,11 +11,6 @@ int _printenv(void)
 	int i = 0;
 	char *str = environ[0];
 
-	if (str == NULL)
-	{
-		fprintf(stderr, "Environment variable is null");
-		return (-1);
-	}
 	while (str != NULL)
 	{
 		printf("%s\n", str);
@@ -35,11 +30,6 @@ char *_getenv(char *var)
 {
 	int i, len_var;
 
-	if (environ == NULL)
-	{
-		fprintf(stderr, "Environment variable is null");
-		return (NULL);
-	}
 	len_var = strlen(var);
 	for (i = 0; environ[i] != NULL; i++)
 	{
@@ -47,4 +37,37 @@ char *_getenv(char *var)
 			return (&environ[i][len_var]);
 	}
 	return (NULL);
+}
+
+/**
+ * trim_whitespace - Trims leading and trailing whitespace from a string
+ * @str: The string to trim
+ */
+
+void trim_whitespace(char *str)
+{
+	int i, j;
+	int len = strlen(str);
+
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	if (i > 0)
+	{
+		j = 0;
+		while (str[i] != '\0')
+		{
+			str[j] = str[i];
+			i++;
+			j++;
+		}
+		str[j] = '\0';
+	}
+	len = strlen(str);
+	i = len - 1;
+	while (i >= 0 && (str[i] == ' ' || str[i] == '\t'))
+	{
+		str[i] = '\0';
+		i--;
+	}
 }
